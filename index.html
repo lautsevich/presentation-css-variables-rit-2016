@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>Пользовательские свойства как основа архитектуры CSS</h1>
+		<p>Павел Ловцевич, LOVATA</p>
+	</header>
+	<section class="slide white" id="cover">
+		<h2>Пользовательские свойства<br> как основа архитектуры CSS</h2>
+		<p><a href="https://twitter.com/zigzag_mcquack" target="_blank">Павел Ловцевич</a>, <a href="http://lovata.com" target="_blank">LOVATA</a></p>
+		<img src="pictures/cover.png" alt="" class="cover height">
+		<style>
+			#cover h2 {
+				margin: 30px 0 20px;
+				font-size: 60px;
+			}
+			#cover p {
+				font-size: 30px;
+			}
+			.slide {
+				padding: 40px 100px 0 70px;
+				font-size: 20px;
+				line-height: 35px !important;
+				background: url(pictures/slide white-bg.png) 0 0 !important;
+			}
+			.slide h2 {
+				color: #000;
+			}
+			.slide h3 { 
+				margin-bottom: 20px;
+				font-size: 25px;
+				font-weight: bold;
+			}
+			.col-l, .col-r { 
+				width: 49%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.slide {
+				background: url(pictures/slide.png) no-repeat bottom right;
+			}
+		</style>
+	</section>
+
+	<section class="slide white">
+		<h2>Препроцессоры</h2>
+		<img src="pictures/bulb-replacement.jpg" class="place b" alt="Препроцессоры">
+	</section>
+	
+	<section class="slide white">
+		<h2>Популярные возможности</h2>
+		<img src="pictures/stats.png" class="place b" height="80%" alt="">
+	</section>
+	
+	<section class="slide white">
+		<h2>Преимущества переменных</h2>
+		<figure>
+			<blockquote>
+				<p>Переменные — основа современного правильно сконструированного проекта.</p>
+			</blockquote>
+			<figcaption>
+				<cite>Карен Менезес</cite>, <a href="https://www.smashingmagazine.com/2016/01/variables-in-css-architecture" target="_blank">Variables: The Backbone Of CSS Architecture</a>
+			</figcaption>
+		</figure>
+		<ul>
+			<li>Модульность.</li>
+			<li>Уменьшение повторяемости.</li>
+			<li>Сокращение объема.</li>
+			<li>Повышение читаемости.</li>
+			<li>Стайлгайд.</li>
+		</ul>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные. Когда и какие?</h2>
+		<h3>Условие</h3>
+		<ul>
+			<li>Значение встречается в коде два и более раз.</li>
+			<li>Значение в будущем может изменяться.</li>
+		</ul>
+		<div class="next">
+			<h3>Тип</h3>
+			<ul>
+				<li>Измерения (размеры, отступы, радиусы скругления и т.п.).</li>
+				<li>Цветовые схемы.</li>
+				<li>Типографика.</li>
+				<li>Наборы иконок.</li>
+				<li>Брейкпойнты.</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2>Переменные в CSS</h2>
+		<ul>
+			<li>2008 — первая реализация в Safari.</li>
+			<li>2012 — CSS Variables Module Level 1.</li>
+			<li>2013 — CSS Custom Properties for Cascading Variables Module Level 1.</li>
+			<li>2014 — первая реализация по спецификации в Chrome и Firefox.</li>
+			<li>2015 — W3C Candidate Recommendation.</li>
+			<li>2016 — массовое внедрение в браузерах.</li>
+		</ul>
+	</section>
+	
+	<section class="slide white">
+		<h2>Преимущества переменных CSS</h2>
+		<ul>
+			<li>Работают в runtime и доступны для чтения и изменения.</li>
+			<li>Существуют в DOM'е и ограничены областью видимости узла.</li>
+			<li>Наследуются до последнего потомка узла DOM!</li>
+		</ul>
+	</section>
+	
+	<section class="slide white">
+		<h2><s>Переменные</s> Пользовательские свойства CSS</h2>
+		<div class="col-l">
+			<h3>Пользователькое свойство</h3>
+			<p>Особая разновидность свойств CSS с префиксом <code>--</code>, объявляющим имя переменной, и заданным значением.</p>
+			<pre>
+				<code>--Variable: value;</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>Переменная</h3>
+			<p>Функция CSS, связывающая идентификатор <code>--variable</code> и его значение.
+			<pre>
+				<code>var(--Variable);</code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2><s>Переменные</s> Пользовательские свойства CSS</h2>
+		<div class="col-l">
+			<h3>Пользователькое свойство</h3>
+			<p>Особая разновидность свойств CSS с префиксом <code>--</code>, объявляющим имя переменной, и заданным значением.</p>
+			<pre>
+				<code>--<mark>V</mark>ariable: value;</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>Переменная</h3>
+			<p>Функция CSS, связывающая идентификатор <code>--variable</code> и его значение.
+			<pre>
+				<code>var(--<mark>V</mark>ariable);</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2>Поддержка в браузерах</h2>
+		<figure class="place">
+			<img src="pictures/browsers.png" alt="">
+			<figcaption>
+				<p>PostCSS-костыль <a href="https://github.com/MadLittleMods/postcss-css-variables" target="_blank">IE/Edge</a>.</p>
+			</figcaption>	
+		</figure>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проголосовать за внедрение в Edge</h2>
+		<figure class="place b">
+			<figcaption>
+				<img src="pictures/qrcode.png"alt="">
+				<p><a href="http://bit.ly/css-var-edge" target="_blank">http://bit.ly/css-var-edge</a></p>
+			</figcaption>	
+		</figure>
+	</section>	
+	
+	<section class="slide white">
+		<h2>Область видимости</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Область видимости</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code><mark>:root {</mark></code>
+				<code>	--variable: value;</code>
+				<code><mark>}</mark></code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Область видимости</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+			<p><strong>Альтернативная запись:</strong></p>
+			<pre>
+				<code><mark>html {</mark></code>
+				<code>	--variable: value;</code>
+				<code><mark>}</mark></code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Область видимости</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>
+			<p><strong>Глобальная из локальной:</strong></p>
+			<pre>
+				<code>selector {</code>
+				<code>	$variable: value</code>
+				<code>	<mark>!global<mark>;</code>
+				<code>}</code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+			<p><strong>Альтернативная запись:</strong></p>
+			<pre>
+				<code>html {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2>Ограничение области видимости</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>selector {</code>
+				<code>	$variable: value;</code>
+				<code>}</code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>selector {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="next">
+			<div class="col-l">
+				<p><strong>А также:</strong></p>
+				<ul>
+					<li>вложенный селектор;</li>
+					<li>@mixin.</li>
+				</ul>
+			</div>
+			<div class="col-r">
+				<p><strong>А также:</strong></p>
+				<ul>
+					<li>псевдокласс;</li>
+					<li>@media.</li>
+				</ul>			
+			</div>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2>Синтаксис</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code>selector {</code>
+				<code>	property: $variable;</code>
+				<code>}</code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code>:root {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code>selector {</code>
+				<code>	property: var(--variable);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Голосуем за вариант SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code><mark>$variable: value;</mark></code>
+				<code>	</code>
+				<code>	</code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code><mark>selector {</mark></code>
+				<code><mark>	property: $variable;</mark></code>
+				<code><mark>}</mark></code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code>:root {</code>
+				<code>	--variable: value;</code>
+				<code>}</code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code>selector {</code>
+				<code>	property: var(--variable);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Голосуем за вариант CSS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code>$variable: value;</code>
+				<code>	</code>
+				<code>	</code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code>selector {</code>
+				<code>	property: $variable;</code>
+				<code>}</code>
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<p><strong>Объявление:</strong></p>
+			<pre>
+				<code><mark>:root {</mark></code>
+				<code><mark>	--variable: value;</mark></code>
+				<code><mark>}</mark></code>
+			</pre>
+			<p><strong>Вызов:</strong></p>
+			<pre>
+				<code><mark>selector {</mark></code>
+				<code><mark>	property: var(--variable);</mark></code>
+				<code><mark>}</mark></code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Причины выбранного синтаксиса</h2>
+		<figure>
+			<blockquote>
+				<p>Если бы мы использовали символ "$" для переменных, то не смогли бы его использовать для будущих новых вещей, подобных на переменные.</p>
+			</blockquote>
+			<figcaption>
+				<cite>Таб Аткинс</cite>, <a href="http://www.xanthir.com/blog/b4KT0" target="_blank">Let's Talk about CSS Variables</a>
+			</figcaption>
+		</figure>
+		<div class="next">
+			<p><strong>На самом деле:</strong></p>
+			<ul>
+				<li>совместимость с препроцессорами;</li>
+				<li>нативные "грамматика" и "пунктуация" CSS.</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">Динамичность <br>переменных</h2>
+	</section>
+	
+ 	<section class="slide white">
+		<h2>Один большой CSS</h2>
+		<h3>HTML</h3>
+		<pre>
+			<code>&lt;head&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="<mark>all-in-one.css</mark>"&gt;</code>	
+			<code>&lt;/head&gt;</code>	
+			<code>&lt;body&gt;</code>	
+			<code>	&lt;div class="block"&gt;…&lt;/&gt;</code>
+			<code>	…</code>
+			<code>&lt;/body&gt;</code>		
+		</pre>	
+	</section>
+	
+ 	<section class="slide white">
+		<h2>Много мелких CSS</h2>
+		<h3>HTML</h3>
+		<pre>
+			<code>&lt;head&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="main.css"&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="block.css"&gt;</code>
+			<code>	…</code>
+			<code>&lt;/head&gt;</code>	
+			<code>&lt;body&gt;</code>	
+			<code>	&lt;div class="block"&gt;…&lt;/&gt;</code>
+			<code>	…</code>
+			<code>&lt;/body&gt;</code>		
+		</pre>	
+	</section>
+	
+ 	<section class="slide white">
+		<h2>Много мелких CSS</h2>
+		<h3>HTML</h3>
+		<pre>
+			<code>&lt;head&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="<mark>main.css</mark>"&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="block.css"&gt;</code>
+			<code>	…</code>
+			<code>&lt;/head&gt;</code>	
+			<code>&lt;body&gt;</code>	
+			<code>	&lt;div class="block"&gt;…&lt;/&gt;</code>
+			<code>	…</code>
+			<code>&lt;/body&gt;</code>		
+		</pre>	
+	</section>
+	
+ 	<section class="slide white">
+		<h2>Много мелких CSS</h2>
+		<h3>HTML</h3>
+		<pre>
+			<code>&lt;head&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="main.css"&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="<mark>block.css</mark>"&gt;</code>
+			<code>	…</code>
+			<code>&lt;/head&gt;</code>	
+			<code>&lt;body&gt;</code>	
+			<code>	&lt;div class="block"&gt;…&lt;/&gt;</code>
+			<code>	…</code>
+			<code>&lt;/body&gt;</code>		
+		</pre>	
+	</section>
+	
+ 	<section class="slide white">
+		<h2>Много мелких CSS</h2>
+		<h3>HTML</h3>
+		<pre>
+			<code>&lt;head&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="main.css"&gt;</code>	
+			<code>	…</code>
+			<code>&lt;/head&gt;</code>	
+			<code>&lt;body&gt;</code>	
+			<code>	&lt;link rel="stylesheet" href="<mark>block.css</mark>"&gt;</code>
+			<code>	&lt;div class="block"&gt;…&lt;/&gt;</code>
+			<code>	…</code>
+			<code>&lt;/body&gt;</code>		
+		</pre>	
+	</section>
+	
+	<section class="slide white">
+		<h2>Блокировка отображения</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;head&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet" </code>	
+				<code>	href="main.css"&gt;</code>	
+				<code>&lt;/head&gt;</code>		
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>main.css</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--blocker: none;</code>
+				<code>	…</code>
+				<code>}</code>	
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Блокировка отображения</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;head&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet" </code>	
+				<code>	href="<mark>main.css</mark>"&gt;</code>	
+				<code>&lt;/head&gt;</code>		
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>main.css</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--blocker: none;</code>
+				<code>	…</code>
+				<code>}</code>	
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Блокировка отображения</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;head&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet" </code>	
+				<code>	href="main.css"&gt;</code>	
+				<code>&lt;/head&gt;</code>		
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>main.css</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--blocker: none;</mark></code>
+				<code>	…</code>
+				<code>}</code>	
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Снятие блокировки</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;body&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet"</code>	
+				<code>	href="<mark>block.css</mark>"&gt;</code>	
+				<code>	&lt;div class="block"&gt;</code>	
+				<code>	…&lt;/div&gt;</code>	
+				<code>&lt;/body&gt;</code>	
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>block.css</h3>
+			<pre>
+				<code>.block {</code>
+				<code>	--blocker: block;</code>
+				<code>	display: var(--blocker);</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Снятие блокировки</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;body&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet"</code>	
+				<code>	href="block.css"&gt;</code>	
+				<code>	&lt;div class="block"&gt;</code>	
+				<code>	…&lt;/div&gt;</code>	
+				<code>&lt;/body&gt;</code>	
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>block.css</h3>
+			<pre>
+				<code>.block {</code>
+				<code>	--blocker: <mark>block</mark>;</code>
+				<code>	display: var(--blocker);</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Снятие блокировки</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;body&gt;</code>	
+				<code>	&lt;link </code>	
+				<code>	rel="stylesheet"</code>	
+				<code>	href="block.css"&gt;</code>	
+				<code>	&lt;div class="block"&gt;</code>	
+				<code>	…&lt;/div&gt;</code>	
+				<code>&lt;/body&gt;</code>	
+			</pre>
+		</div>
+		<div class="col-r">
+			<h3>block.css</h3>
+			<pre>
+				<code>.block {</code>
+				<code>	--blocker: block;</code>
+				<code>	display: var(<mark>--blocker</mark>);</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2 class="shout">Переменные<br> в @media</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные в @media</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--gutter: 1em;</code>
+				<code>}</code>
+				<code>.сontainer {</code>
+				<code>	padding: --gutter;</code>
+				<code>}</code>
+			</pre>			
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные в @media</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--gutter: <mark>1em</mark>;</code>
+				<code>}</code>
+				<code>.сontainer {</code>
+				<code>	padding: --gutter;</code>
+				<code>}</code>
+				<div class="next">
+					<code>@media (min-width: 1200px) {</code>
+					<code>	:root { --gutter: <mark>2em</mark>; }</code>
+					<code>}</code>
+				</div>
+			</pre>			
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные в @media</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--gutter: <mark>1em</mark>;</code>
+				<code>}</code>
+				<code>.сontainer {</code>
+				<code>	padding: --gutter;</code>
+				<code>}</code>
+				<code>@media (min-width: 1200px) {</code>
+				<code>	:root { --gutter: <mark>2em</mark>; }</code>
+				<code>}</code>
+			</pre>			
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre>
+				<code>.сontainer {</code>
+				<code>	padding: <mark>1em</mark>;</code>
+				<code>}</code>
+				<code> </code>
+				<code>@media (min-width: 1200px) {</code>
+				<code>	.сontainer {</code>
+				<code>		padding: <mark>2em</mark>;</code>
+				<code>	}</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные в @media (SASS)</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$gutter: 1em;</code>
+				<code> </code>
+				<code>.сontainer {</code>
+				<code>	padding: $gutter;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>@media (min-width: 1200px) {</code>
+				<code>	$gutter: 2em;</code>
+				<code>}</code>
+				
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre class="next">
+				<code>.сontainer {</code>
+				<code>	padding: <mark>1em</mark>;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Переменные в @media (SASS)</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$gutter: 1em;</code>
+				<code> </code>
+				<code>.сontainer {</code>
+				<code>	padding: $gutter;</code>
+				<code>}</code>
+				<code> </code>
+				<code><mark class="important">@media (min-width: 1200px) {</mark></code>
+				<code><mark class="important">	$gutter: 2em;</mark></code>
+				<code><mark class="important">}</mark></code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>.сontainer {</code>
+				<code>	padding: <mark>1em</mark>;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2 class="shout">Наследование переменных</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>Наследование переменных</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: black;</code>
+				<code>}</code>
+				<code><mark>button</mark> {</code>
+				<code>	background:</code>
+				<code>	var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Наследование переменных</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: <mark>black</mark>;</code>
+				<code>}</code>
+				<code>button {</code>
+				<code>	background:</code>
+				<code>	var(--main-color);</code>
+				<code>}</code>
+				<div class="next">
+					<code>.black-box {</code>
+					<code>	--main-color: <mark>white</mark>;</code>
+					<code>}</code>
+				</div>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>black</mark>;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.black-box button {</code>
+				<code>	background:<mark> white</mark>;</code>
+				<code>}</code>
+			</pre>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2 class="shout">Каскад?<br> Это шутка?</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>Принцип открытости/закрытости</h2>
+		<p>Программные сущности (классы, модули, функции и т.д.) должны быть открыты для расширения, но закрыты для изменения.</p>
+		<div class="col-l next">
+			<h3>Плохо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: black;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.header .button {</code>
+				<code>	background: white;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r next">
+			<h3>Хорошо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: var(--main-color, black);</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.header {</code>
+				<code>	--main-color: white;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Принцип открытости/закрытости</h2>
+		<p>Программные сущности (классы, модули, функции и т.д.) должны быть открыты для расширения, но закрыты для изменения.</p>
+		<div class="col-l">
+			<h3>Плохо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: black;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.header .button {</code>
+				<code>	background: white;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>Хорошо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: var(--main-color, <mark>black</mark>);</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.header {</code>
+				<code>	--main-color: white;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Принцип открытости/закрытости</h2>
+		<p>Программные сущности (классы, модули, функции и т.д.) должны быть открыты для расширения, но закрыты для изменения.</p>
+		<div class="col-l">
+			<h3>Плохо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: black;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.header .button {</code>
+				<code>	background: white;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>Хорошо</h3>
+			<pre>
+				<code>.button {</code>
+				<code>	background: var(--main-color, black);</code>
+				<code>}</code>
+				<code>	</code>
+				<code><mark>.header {</mark></code>
+				<code><mark>	--main-color: white;</mark></code>
+				<code><mark>}</mark></code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">Настройки<br> по умолчанию</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>Локальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color,</code>
+				<code>	green);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Локальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: <mark>initial</mark>;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color,</code>
+				<code>	green);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Локальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color,</code>
+				<code>	<mark>green</mark>);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>green</mark>;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Локальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: <mark>red</mark>;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color,</code>
+				<code>	green);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>red</mark>;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	green);</code>
+				<code>	--main-color-custom: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--main-color</mark>: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	green);</code>
+				<code>	--main-color-custom: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	green);</code>
+				<code>	<mark>--main-color-custom</mark>: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(<mark>--main-color-custom</mark>,</code>
+				<code>	green);</code>
+				<code>	<mark>--main-color-custom</mark>: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	<mark>green</mark>);</code>
+				<code>	--main-color-custom: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	<mark>green</mark>);</code>
+				<code>	--main-color-custom: initial;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre>
+				<code>button {</code>
+				<code>	background: <mark>green</mark>;</code>
+				<code>}</code>
+			</pre>	
+	</section>
+	
+	<section class="slide white">
+		<h2>Глобальный fallback</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color: </code>
+				<code>	var(--main-color-custom,</code>
+				<code>	green);</code>
+				<code>	--main-color-custom: <mark>red</mark>;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: var(--main-color);</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>red</mark>;</code>
+				<code>}</code>
+			</pre>	
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$color: null;</code>
+				<code>$color: green !default;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code><mark>$color</mark>: null;</code>
+				<code><mark>$color</mark>: green !default;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$color: <mark>null</mark>;</code>
+				<code>$color: green !default;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$color: null;</code>
+				<code>$color: green <mark>!default</mark>;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$color: null;</code>
+				<code>$color: <mark>green</mark> !default;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>green</mark>;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Fallback в SASS</h2>
+		<div class="col-l">
+			<h3>SASS</h3>
+			<pre>
+				<code>$color: <mark>red</mark>;</code>
+				<code>$color: green !default;</code>
+				<code>	</code>
+				<code>button {</code>
+				<code>	background: $color;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre class="next">
+				<code>button {</code>
+				<code>	background: <mark>red</mark>;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">I18n</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">“aнглийские двойные”</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">«французские ёлочки»</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>I18n</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;html lang="ru"&gt;</code>
+				<code>	&lt;body&gt;</code>
+				<code>		&lt;q&gt;Чебурашка&lt;/q&gt;</code>
+				<code>	&lt;/body&gt;</code>
+				<code>&lt;/html&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>I18n</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;html <mark>lang</mark>="ru"&gt;</code>
+				<code>	&lt;body&gt;</code>
+				<code>		&lt;q&gt;Чебурашка&lt;/q&gt;</code>
+				<code>	&lt;/body&gt;</code>
+				<code>&lt;/html&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>			
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>I18n</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;html lang="ru"&gt;</code>
+				<code>	&lt;body&gt;</code>
+				<code>		&lt;q&gt;Чебурашка&lt;/q&gt;</code>
+				<code>	&lt;/body&gt;</code>
+				<code>&lt;/html&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>q {</code>
+				<code>	quotes: var(--quotes-l)</code>
+				<code>			var(--quotes-r);</code>
+				<code>}</code>
+				<div class="next">
+					<code>:root:lang(ru) {</code>
+					<code>  --quotes-l: "<mark>«</mark>"; --quotes-r: "<mark>»</mark>";</code>
+					<code>}</code>
+				</div>
+				<div class="next">
+					<code>:root:lang(en) {</code>
+					<code>  --quotes-l: "<mark>“</mark>"; --quotes-r: "<mark>”</mark>";</code>
+					<code>}</code>
+				</div>
+			</pre>				
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>I18n</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;html lang="<mark>ru</mark>"&gt;</code>
+				<code>	&lt;body&gt;</code>
+				<code>		&lt;q&gt;Чебурашка&lt;/q&gt;</code>
+				<code>	&lt;/body&gt;</code>
+				<code>&lt;/html&gt;</code>
+			</pre>
+			<div class="next">
+				<h3>Результат</h3>
+				<pre>
+					<code><mark>«</mark>Чебурашка<mark>»</mark></code>
+				</pre>
+			</div>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>q {</code>
+				<code>	quotes: var(--quotes-l)</code>
+				<code>			var(--quotes-r);</code>
+				<code>}</code>
+				<div>
+					<code>:root:lang(ru) {</code>
+					<code>  --quotes-l: "<mark>«</mark>"; --quotes-r: "<mark>»</mark>";</code>
+					<code>}</code>
+				</div>
+				<div>
+					<code>:root:lang(en) {</code>
+					<code>  --quotes-l: "“"; --quotes-r: "”";</code>
+					<code>}</code>
+				</div>
+			</pre>				
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>I18n</h2>
+		<div class="col-l">
+			<h3>HTML</h3>
+			<pre>
+				<code>&lt;html lang="<mark>en</mark>"&gt;</code>
+				<code>	&lt;body&gt;</code>
+				<code>		&lt;q&gt;Чебурашка&lt;/q&gt;</code>
+				<code>	&lt;/body&gt;</code>
+				<code>&lt;/html&gt;</code>
+			</pre>
+			<div class="next">
+				<h3>Результат</h3>
+				<pre>
+					<code><mark>“</mark>Чебурашка<mark>”</mark></code>
+				</pre>
+			</div>
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>q {</code>
+				<code>	quotes: var(--quotes-l)</code>
+				<code>			var(--quotes-r);</code>
+				<code>}</code>
+				<div>
+					<code>:root:lang(ru) {</code>
+					<code>  --quotes-l: "«"; --quotes-r: "»";</code>
+					<code>}</code>
+				</div>
+				<div>
+					<code>:root:lang(en) {</code>
+					<code>  --quotes-l: "<mark>“</mark>"; --quotes-r: "<mark>”</mark>";</code>
+					<code>}</code>
+				</div>
+			</pre>				
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">Вычисляемые значения</h2>
+	</section>	
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	var(--line-height)rem;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	<mark>margin-bottom</mark>:</code>
+				<code>	var(--line-height)rem;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--line-height: 1.5;</mark></code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	var(--line-height)rem;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	var(--line-height)<mark>rem</mark>;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	<s>margin-bottom:</s></code>
+				<code>	<s>var(--line-height)rem</s>;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	calc(var(--line-height) *</code>
+				<code>	1rem);</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	calc(<mark>var(--line-height)</mark> *</code>
+				<code>	1rem);</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	calc(var(--line-height) *</code>
+				<code>	<mark>1rem</mark>);</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Вычисляемые значения</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--line-height: 1.5;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>p {</code>
+				<code>	margin-bottom:</code>
+				<code>	calc(var(--line-height) *</code>
+				<code>	<mark>1rem</mark>);</code>
+				<code>}</code>
+			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre>
+				<code>p {</code>
+				<code>	margin-bottom: <mark>1rem</mark>;</code>
+				<code>}</code>
+			</pre>					
+		</div>
+	</section>
+
+	
+	<section class="slide white">
+		<h2 class="shout">Цветовые<br> схемы<br> и SVG</h2>
+	</section>	
+
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="red" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="<mark>red</mark>" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="var(<mark>--main-color</mark>)" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--main-color</mark>:</code>
+				<code>	var(--main-color-custom, green);</code>
+				<code>	--main-color-custom: red;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="var(--main-color)" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color:</code>
+				<code>	var(--main-color-custom, <mark>green</mark>);</code>
+				<code>	--main-color-custom: red;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="var(--main-color)" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color:</code>
+				<code>	var(--main-color-custom, green);</code>
+				<code>	<mark>--main-color-custom</mark>: red;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Цветовые схемы и SVG</h2>
+		<div class="col-l">
+			<h3>SVG глазами браузера</h3>
+			<pre>
+				<code>&lt;svg height="100" width="100"&gt;</code>
+				<code>	&lt;circle cx="50" cy="50"</code>
+				<code>	r="50"</code>
+				<code>	fill="<mark>red</mark>" /&gt;</code>
+				<code>&lt;/svg&gt;</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--main-color:</code>
+				<code>	var(--main-color-custom, green);</code>
+				<code>	--main-color-custom: <mark>red</mark>;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2 class="shout">JavaScript</h2>
+	</section>		
+	
+	<section class="slide white">
+		<h2>API CSSVariablesMap</h2>
+		<pre>
+			<code>el.style.var.get('variable');</code>
+			<code>el.style.var.has('variable');</code>
+			<code>el.style.var.set('variable', 'value');</code>
+			<code>el.style.var.delete('variable');</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>API CSSVariablesMap</h2>
+		<pre>
+			<code>el.style.var.<mark>get</mark>('variable');</code>
+			<code>el.style.var.<mark>has</mark>('variable');</code>
+			<code>el.style.var.<mark>set</mark>('variable', 'value');</code>
+			<code>el.style.var.<mark>delete</mark>('variable');</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>API CSSVariablesMap</h2>
+		<pre>
+			<code><s>el.style.var.get('variable');</s></code>
+			<code><s>el.style.var.has('variable');</s></code>
+			<code><s>el.style.var.set('variable', 'value');</s></code>
+			<code><s>el.style.var.delete('variable');</s></code>
+		</pre>
+		<p>API удалено из стандарта в поисках лучшего решения.</p>
+	</section>
+
+	<section class="slide white">
+		<h2>API CSSStyleDeclaration</h2>
+		<pre>
+			<code>getComputedStyle(document.documentElement).<mark>getPropertyValue</mark>('--variable');</code>
+			<code>document.documentElement.style.<mark>setProperty</mark>('--variable', 'value');</code>
+			<code>document.documentElement.style.<mark>removeProperty</mark>('--variable');</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>API CSSStyleDeclaration</h2>
+		<pre>
+			<code>getComputedStyle(document.documentElement).getPropertyValue('--variable');</code>
+			<code>document.documentElement.style.setProperty('--variable', 'value');</code>
+			<code>document.documentElement.style.removeProperty('--variable');</code>
+		</pre>
+		<h3>И даже так</h3>
+		<pre>
+			<code>document.documentElement.style.setProperty('--variable',</code>
+			<code><mark>'var(--anotherVariable, 'fallback')</mark>');</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">Проверка поддержки</h2>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проверка поддержки в CSS</h2>
+		<h3>CSS</h3>
+		<pre>
+			<code>@supports ( (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
+			<code>}</code>
+			<code>	</code>
+			<code>@supports ( not (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проверка поддержки в CSS</h2>
+		<h3>CSS</h3>
+		<pre>
+			<code><mark>@supports ( (--a: 0)) {</mark></code>
+			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
+			<code><mark>}</mark></code>
+			<code>	</code>
+			<code>@supports ( not (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проверка поддержки в CSS</h2>
+		<h3>CSS</h3>
+		<pre>
+			<code>@supports ( (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
+			<code>}</code>
+			<code>	</code>
+			<code><mark>@supports ( not (--a: 0)) {</mark></code>
+			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
+			<code><mark>}</mark></code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проверка поддержки в CSS</h2>
+		<h3>CSS</h3>
+		<pre>
+			<code>@supports ( (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
+			<code>}</code>
+			<code>	</code>
+			<code>@supports ( not (--a: 0)) {</code>
+			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
+			<code>}</code>
+		</pre>
+		<p><strong>Не работает в IE!</strong></p>
+	</section>
+	
+	<section class="slide white">
+		<h2>Проверка поддержки в JS</h2>
+		<h3>CSS</h3>
+		<pre>
+			<code>if (window.CSS && window.CSS.supports && window.CSS.supports('--a', 0)) {</code>
+			<code>	<span class="comment">// сценарии с поддержкой переменных</span></code>
+			<code>} else {</code>
+			<code>	<span class="comment">// сценарии бех поддержки переменных</span></code>
+			<code>}</code>
+		</pre>
+	</section>
+	
+	<section class="slide white">
+		<h2>Ограничения переменных CSS</h2>
+		<ul>
+			<li class="next">нельзя использовать в:
+				<ul>
+					<li class="next">в именах обычных свойств CSS: <code><strike>var(--side): 10px</strike></code>;</li>
+					<li class="next">в значениях медиа-запросов: <code><strike>@media screen and (min-width: var(--desktop-breakpoint) { }</strike></code>;</li>
+					<li class="next">в подстановке URL: <code><strike>url(var(--image-url))</strike></code>;</li>
+				</ul>
+			</li>
+			<li class="next">будьте осторожны с вычислениями <code>calc()</code>:
+				<ul>
+					<li class="next">со сложными <a href="http://codepen.io/malyw/pen/ONmjzp" target="_blank">вычислениями</a> в принципе;</li>
+					<li class="next">в Chrome с умножением/делением дробных значений;</li>
+					<li class="next">в Firefox с вычислениями внутри функций <code>rgba()</code>.</li>
+				</ul>
+			<li class="next">нельзя одномоментно cбрасывать значения всех переменных: <code>--: initial</code>.</li>
+		</ul>
+	</section>
+	
+	<section class="slide white">
+		<h2>Таб Аткинс</h2>
+		<div class="col-l">
+			<img src="pictures/tab-atkins.jpg" width="85%" alt="Tab Atkins">	
+		</div>
+		<div class="col-r">
+			<h3>Работает над:</h3>
+			<ul>
+				<li class="next"><a href="https://tabatkins.github.io/specs/css-nesting/" target="_blank">CSS Nesting Module Level 3</a></li>
+				<li class="next"><a href="https://tabatkins.github.io/specs/css-apply-rule/" target="_blank">CSS @apply Rule</a></li>
+				<li class="next"><a href="https://tabatkins.github.io/specs/css-when-else/" target="_blank">CSS When/Else Rules</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="slide white">
+		<h2 class="shout"><s>@mixin</s><br> @apply</h2>
+	</section>	
+	
+	<section class="slide white">
+		<h2>@apply</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--clearfix: {</code>
+				<code>		display: table;</code>
+				<code>		clear: both;</code>
+				<code>		content: '';</code>
+				<code>	}</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>	
+	</section>
+	
+	<section class="slide white">
+		<h2>@apply</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code><mark>:root {</mark></code>
+				<code>	--clearfix: {</code>
+				<code>		display: table;</code>
+				<code>		clear: both;</code>
+				<code>		content: '';</code>
+				<code>	}</code>
+				<code><mark>}</mark></code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>	
+	</section>
+	
+	<section class="slide white">
+		<h2>@apply</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	<mark>--clearfix</mark>: {</code>
+				<code>		display: table;</code>
+				<code>		clear: both;</code>
+				<code>		content: '';</code>
+				<code>	}</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>	
+	</section>
+	
+	<section class="slide white">
+		<h2>@apply</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--clearfix: {</code>
+				<code>		<mark>display: table;</mark></code>
+				<code>		<mark>clear: both;</mark></code>
+				<code>		<mark>content: '';</mark></code>
+				<code>	}</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+		</div>	
+	</section>
+	
+	<section class="slide white">
+		<h2>@apply</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>:root {</code>
+				<code>	--clearfix: {</code>
+				<code>		display: table;</code>
+				<code>		clear: both;</code>
+				<code>		content: '';</code>
+				<code>	}</code>
+				<code>}</code>
+				<div>
+					<code>.box:after {</code>
+					<code>	<mark>@apply --clearfix;<mark></code>
+					<code>}</code>
+				</div>
+			</pre>		
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
+				<code>.box:after {</code>
+				<code>	<mark>display: table;<mark></code>
+				<code>	<mark>clear: both;<mark></code>
+				<code>	<mark>content: '';<mark></code>
+				<code>}</code>
+			</pre>			
+		</div>	
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout"><a href="chrome://flags/#enable-experimental-web-platform-features" target="_blank">chrome://flags</a></h2>
+	</section>
+	
+	<section class="slide white">
+		<h2 class="shout">@custom-selector</h2>
+	</section>	
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre class="next">
+				<code>@custom-selector :--heading {</code>
+				<code>	expansion: h1, h2, h3,</code>
+				<code>	h4, h5, h6;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>	
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code><mark>@custom-selector</mark> :--heading {</code>
+				<code>	expansion: h1, h2, h3,</code>
+				<code>	h4, h5, h6;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>	
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>@custom-selector <mark>:--heading</mark> {</code>
+				<code>	expansion: h1, h2, h3,</code>
+				<code>	h4, h5, h6;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>	
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>@custom-selector :--heading {</code>
+				<code>	<mark>expansion: h1, h2, h3,</mark></code>
+				<code>	<mark>h4, h5, h6;</mark></code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>	
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>@custom-selector :--heading {</code>
+				<code>	expansion: h1, h2, h3,</code>
+				<code>	h4, h5, h6;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>article <mark>:--heading</mark> + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>@custom-selector</h2>
+		<div class="col-l">
+			<h3>CSS</h3>
+			<pre>
+				<code>article h1 + p,</code>
+				<code>article h2 + p,</code>
+				<code>article h3 + p,</code>
+				<code>article h4 + p,</code>
+				<code>article h5 + p,</code>
+				<code>article h6 + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>	
+		</div>	
+		<div class="col-r">
+			<h3>CSS</h3>
+			<pre>
+				<code>@custom-selector :--heading {</code>
+				<code>	expansion: h1, h2, h3,</code>
+				<code>	h4, h5, h6;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>article :--heading + p {</code>
+				<code>	margin-top: 0;</code>
+				<code>}</code>
+			</pre>		
+		</div>
+		<p>Полифил <a href="https://github.com/postcss/postcss-custom-selectors" target="_blank">PostCSS Custom Selectors</a>.</p>
+	</section>
+
+	<section class="slide white">
+		<h2>Подытоживая</h2>
+		<ul>
+			<li>Новые способы решения старых задач.</li>
+			<li>Решение невозможных для препроцессоров задач.</li>
+			<li>Расширение компонентов через наследование.</li>
+			<li>Широкая поддержка в браузерах.</li>
+			<li>Простой нативный способ взаимодействия с JS, SVG и т.п.</li>
+			<li><strong>Начало конца эры препроцессоров :-P</strong></li>
+		</ul>
+	</section>
+
+	<section class="slide white">
+		<h2>Спасибо за внимание! Вопросы?</h2>
+		<div class="col-l">
+			<img src="pictures/avatar.jpg" alt="Павел Ловцевич">
+			<h3></h3>	
+		</div>
+		<div class="col-r">
+			<h3>Павел Ловцевич</h3>		
+			<p>
+				CTO @ <a href="http://lovata.com" target="_blank">LOVATA</a><br>
+				<a href="https://twitter.com/zigzag_mcquack" target="_blank">@zigzag_mcquack</a><br>
+				<a href="mailto:p.lovtsevich@lovata.com">p.lovtsevich@lovata.com</a>
+			</p>
+		</div>
+	</section>
+	
+	<section class="slide white">
+		<h2>Не забудьте проголосовать!</h2>
+		<figure class="place b">
+			<figcaption>
+				<img src="pictures/qrcode.png"alt="">
+				<p><a href="http://bit.ly/css-var-edge" target="_blank">http://bit.ly/css-var-edge</a></p>
+			</figcaption>	
+		</figure>
+	</section>	
+	
+	<p class="badge">
+		<a href="https://github.com/shower/shower">Fork me on GitHub</a>
+	</p>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>

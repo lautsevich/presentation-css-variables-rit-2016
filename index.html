@@ -521,16 +521,19 @@
 				<code>	&lt;link </code>	
 				<code>	rel="stylesheet" </code>	
 				<code>	href="main.css"&gt;</code>	
-				<code>&lt;/head&gt;</code>		
+				<code>&lt;/head&gt;</code>
 			</pre>
 		</div>
 		<div class="col-r">
 			<h3>main.css</h3>
 			<pre>
 				<code>:root {</code>
-				<code>	--blocker: none;</code>
-				<code>	…</code>
-				<code>}</code>	
+				<code>	--block-display: none;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.block {</code>
+				<code>	display: var(--block-display);</code>
+				<code>}</code>
 			</pre>
 		</div>
 	</section>
@@ -551,9 +554,12 @@
 			<h3>main.css</h3>
 			<pre>
 				<code>:root {</code>
-				<code>	--blocker: none;</code>
-				<code>	…</code>
-				<code>}</code>	
+				<code>	--block-display: none;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.block {</code>
+				<code>	display: var(--block-display);</code>
+				<code>}</code>
 			</pre>
 		</div>
 	</section>
@@ -574,9 +580,12 @@
 			<h3>main.css</h3>
 			<pre>
 				<code>:root {</code>
-				<code>	<mark>--blocker: none;</mark></code>
-				<code>	…</code>
-				<code>}</code>	
+				<code>	--block-display: <mark>none</mark>;</code>
+				<code>}</code>
+				<code>	</code>
+				<code>.block {</code>
+				<code>	<mark>display</mark>: var(--block-display);</code>
+				<code>}</code>
 			</pre>
 		</div>
 	</section>
@@ -599,8 +608,7 @@
 			<h3>block.css</h3>
 			<pre>
 				<code>.block {</code>
-				<code>	--blocker: block;</code>
-				<code>	display: var(--blocker);</code>
+				<code>	--block-display: block;</code>
 				<code>}</code>
 			</pre>
 		</div>
@@ -624,33 +632,7 @@
 			<h3>block.css</h3>
 			<pre>
 				<code>.block {</code>
-				<code>	--blocker: <mark>block</mark>;</code>
-				<code>	display: var(--blocker);</code>
-				<code>}</code>
-			</pre>
-		</div>
-	</section>
-	
-	<section class="slide white">
-		<h2>Снятие блокировки</h2>
-		<div class="col-l">
-			<h3>HTML</h3>
-			<pre>
-				<code>&lt;body&gt;</code>	
-				<code>	&lt;link </code>	
-				<code>	rel="stylesheet"</code>	
-				<code>	href="block.css"&gt;</code>	
-				<code>	&lt;div class="block"&gt;</code>	
-				<code>	…&lt;/div&gt;</code>	
-				<code>&lt;/body&gt;</code>	
-			</pre>
-		</div>
-		<div class="col-r">
-			<h3>block.css</h3>
-			<pre>
-				<code>.block {</code>
-				<code>	--blocker: block;</code>
-				<code>	display: var(<mark>--blocker</mark>);</code>
+				<code>	--block-display: <mark>block</mark>;</code>
 				<code>}</code>
 			</pre>
 		</div>
@@ -669,7 +651,7 @@
 				<code>	--gutter: 1em;</code>
 				<code>}</code>
 				<code>.сontainer {</code>
-				<code>	padding: --gutter;</code>
+				<code>	padding: var(--gutter);</code>
 				<code>}</code>
 			</pre>			
 		</div>
@@ -687,7 +669,7 @@
 				<code>	--gutter: <mark>1em</mark>;</code>
 				<code>}</code>
 				<code>.сontainer {</code>
-				<code>	padding: --gutter;</code>
+				<code>	padding: var(--gutter);</code>
 				<code>}</code>
 				<div class="next">
 					<code>@media (min-width: 1200px) {</code>
@@ -710,7 +692,7 @@
 				<code>	--gutter: <mark>1em</mark>;</code>
 				<code>}</code>
 				<code>.сontainer {</code>
-				<code>	padding: --gutter;</code>
+				<code>	padding: var(--gutter);</code>
 				<code>}</code>
 				<code>@media (min-width: 1200px) {</code>
 				<code>	:root { --gutter: <mark>2em</mark>; }</code>
@@ -836,7 +818,7 @@
 				<code>}</code>
 				<code>	</code>
 				<code>.black-box button {</code>
-				<code>	background:<mark> white</mark>;</code>
+				<code>	background: <mark>white</mark>;</code>
 				<code>}</code>
 			</pre>
 		</div>
@@ -1483,6 +1465,9 @@
 				<code>}</code>
 			</pre>					
 		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
+		</div>
 	</section>
 	
 	<section class="slide white">
@@ -1499,6 +1484,9 @@
 				<code>	var(--line-height)rem;</code>
 				<code>}</code>
 			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
 		</div>
 	</section>
 	
@@ -1517,6 +1505,9 @@
 				<code>}</code>
 			</pre>					
 		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
+		</div>
 	</section>
 	
 	<section class="slide white">
@@ -1534,20 +1525,11 @@
 				<code>}</code>
 			</pre>					
 		</div>
-	</section>
-	
-	<section class="slide white">
-		<h2>Вычисляемые значения</h2>
-		<div class="col-l">
-			<h3>CSS</h3>
-			<pre>
-				<code>:root {</code>
-				<code>	--line-height: 1.5;</code>
-				<code>}</code>
-				<code>	</code>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>
+			<pre class="next">
 				<code>p {</code>
-				<code>	<s>margin-bottom:</s></code>
-				<code>	<s>var(--line-height)rem</s>;</code>
+				<code>	margin-bottom: <mark>1.5 rem</mark>;</code>
 				<code>}</code>
 			</pre>					
 		</div>
@@ -1568,6 +1550,9 @@
 				<code>	1rem);</code>
 				<code>}</code>
 			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
 		</div>
 	</section>
 	
@@ -1587,6 +1572,9 @@
 				<code>}</code>
 			</pre>					
 		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
+		</div>
 	</section>
 	
 	<section class="slide white">
@@ -1604,6 +1592,9 @@
 				<code>	<mark>1rem</mark>);</code>
 				<code>}</code>
 			</pre>					
+		</div>
+		<div class="col-r">
+			<h3>CSS глазами браузера</h3>				
 		</div>
 	</section>
 	
@@ -1801,8 +1792,8 @@
 		<h2>API CSSStyleDeclaration</h2>
 		<pre>
 			<code>getComputedStyle(document.documentElement).<mark>getPropertyValue</mark>('--variable');</code>
-			<code>document.documentElement.style.<mark>setProperty</mark>('--variable', 'value');</code>
-			<code>document.documentElement.style.<mark>removeProperty</mark>('--variable');</code>
+			<code>element.style.<mark>setProperty</mark>('--variable', 'value');</code>
+			<code>element.style.<mark>removeProperty</mark>('--variable');</code>
 		</pre>
 	</section>
 	
@@ -1810,13 +1801,12 @@
 		<h2>API CSSStyleDeclaration</h2>
 		<pre>
 			<code>getComputedStyle(document.documentElement).getPropertyValue('--variable');</code>
-			<code>document.documentElement.style.setProperty('--variable', 'value');</code>
-			<code>document.documentElement.style.removeProperty('--variable');</code>
+			<code>element.style.setProperty('--variable', 'value');</code>
+			<code>element.style.removeProperty('--variable');</code>
 		</pre>
-		<h3>И даже так</h3>
+		<p><strong>И даже так:</strong></p>
 		<pre>
-			<code>document.documentElement.style.setProperty('--variable',</code>
-			<code><mark>'var(--anotherVariable, 'fallback')</mark>');</code>
+			<code>element.style.setProperty('--variable', <mark>'var(--anotherVariable, "fallback")</mark>');</code>
 		</pre>
 	</section>
 	
@@ -1828,11 +1818,11 @@
 		<h2>Проверка поддержки в CSS</h2>
 		<h3>CSS</h3>
 		<pre>
-			<code>@supports ( (--a: 0)) {</code>
+			<code>@supports (--a: 0) {</code>
 			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
 			<code>}</code>
 			<code>	</code>
-			<code>@supports ( not (--a: 0)) {</code>
+			<code>@supports not (--a: 0) {</code>
 			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
 			<code>}</code>
 		</pre>
@@ -1842,11 +1832,11 @@
 		<h2>Проверка поддержки в CSS</h2>
 		<h3>CSS</h3>
 		<pre>
-			<code><mark>@supports ( (--a: 0)) {</mark></code>
+			<code><mark>@supports (--a: 0) {</mark></code>
 			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
 			<code><mark>}</mark></code>
 			<code>	</code>
-			<code>@supports ( not (--a: 0)) {</code>
+			<code>@supports not (--a: 0) {</code>
 			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
 			<code>}</code>
 		</pre>
@@ -1856,11 +1846,11 @@
 		<h2>Проверка поддержки в CSS</h2>
 		<h3>CSS</h3>
 		<pre>
-			<code>@supports ( (--a: 0)) {</code>
+			<code>@supports (--a: 0) {</code>
 			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
 			<code>}</code>
 			<code>	</code>
-			<code><mark>@supports ( not (--a: 0)) {</mark></code>
+			<code><mark>@supports not (--a: 0) {</mark></code>
 			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
 			<code><mark>}</mark></code>
 		</pre>
@@ -1870,11 +1860,11 @@
 		<h2>Проверка поддержки в CSS</h2>
 		<h3>CSS</h3>
 		<pre>
-			<code>@supports ( (--a: 0)) {</code>
+			<code>@supports (--a: 0) {</code>
 			<code>	<span class="comment">/* стили с поддержкой переменных */</span></code>
 			<code>}</code>
 			<code>	</code>
-			<code>@supports ( not (--a: 0)) {</code>
+			<code>@supports not (--a: 0) {</code>
 			<code>	<span class="comment">/* стили без поддержки переменных */</span></code>
 			<code>}</code>
 		</pre>
